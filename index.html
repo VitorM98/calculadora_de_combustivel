@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Combustível</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="https://cdn4.iconfinder.com/data/icons/business-and-e-commerce/64/Calculator-512.png"
+        type="image/x-icon">
+</head>
+
+<body
+    style="background-image: url('https://fv5-3.files.fm/thumb_show.php?i=nfakjhd6xy&view&v=1&PHPSESSID=79a02bc28d44ed3514cb244b9afd9817fcdb7073'); height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover;">
+
+    <script>
+        /* mensagem de boas-vindas */
+        alert("Olá! Seja bem vindo à calculadora de combustível.");
+
+        /* variáveis da calculadora de distância e consumo médio */
+        let distancia;
+        do {
+            distancia = parseFloat(prompt("Qual a distância percorrida da sua casa até o trabalho (em km)?"));
+            if (isNaN(distancia) || distancia <= 0) {
+                alert("Por favor, insira um número válido.");
+            }
+        } while (isNaN(distancia) || distancia <= 0);
+
+        let consumoMedio;
+        do {
+            consumoMedio = parseFloat(prompt("Qual o consumo médio do seu veículo (em km/L)?"));
+            if (isNaN(consumoMedio) || consumoMedio <= 0) {
+                alert("Por favor, insira um número válido.");
+            }
+        } while (isNaN(consumoMedio) || consumoMedio <= 0);
+
+        /* quantidade de postos pesquisados e valor encontrado em cada posto junto com menor valor pesquisado e soma total dos valores */
+        let quantidadePostos;
+        do {
+            quantidadePostos = parseInt(prompt("Em quantos postos você pesquisou?"));
+            if (isNaN(quantidadePostos) || quantidadePostos <= 0) {
+                alert("Por favor, insira um número válido.");
+            }
+        } while (isNaN(quantidadePostos) || quantidadePostos <= 0);
+
+        let menorValorPesquisado = Infinity;
+        let somaTotalValores = 0;
+
+        for (let i = 1; i <= quantidadePostos; i++) {
+            let valorCombustivelPosto;
+            do {
+                valorCombustivelPosto = parseFloat(prompt(`Digite o valor (em R$) encontrado no posto ${i}:`));
+                if (isNaN(valorCombustivelPosto) || valorCombustivelPosto < 0) {
+                    alert("Por favor, insira um número válido.");
+                }
+            } while (isNaN(valorCombustivelPosto) || valorCombustivelPosto < 0);
+
+            somaTotalValores += valorCombustivelPosto;
+            if (valorCombustivelPosto < menorValorPesquisado) {
+                menorValorPesquisado = valorCombustivelPosto;
+            }
+        }
+
+        /* CÁLCULOS */
+        var consumoNecessarioLitros = distancia / consumoMedio
+        const mediaValores = somaTotalValores / quantidadePostos;
+        const gastoDiario = 2 * (consumoNecessarioLitros * menorValorPesquisado);
+
+        /* Relatório Final */
+        alert(`RELATÓRIO FINAL:
+
+            - O consumo necessário em litros para realizar o deslocamento da sua casa até o trabalho é de ${consumoNecessarioLitros.toFixed(2)} litros.
+            - O menor valor pesquisado é R$ ${menorValorPesquisado.toFixed(2)}
+            - A média dos valores pesquisados é R$ ${mediaValores.toFixed(2)}
+            - O gasto diário (ida e volta) é de R$ ${gastoDiario.toFixed(2)}
+            `
+        );
+    </script>
+</body>
+
+</html>
